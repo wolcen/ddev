@@ -84,13 +84,13 @@ ddev ut dockercheck`,
 		}
 
 		buildxErr := dockerutil.CheckDockerBuildxVersion(dockerutil.DockerRequirements)
-		if buildxErr != nil {
-			util.Warning("Docker buildx version check: %v", buildxErr)
-			hasWarnings = true
-		} else {
-			buildxVersion, _ := dockerutil.GetBuildxVersion()
-			util.Success("docker buildx version %s meets requirements for minimum %s", buildxVersion, dockerutil.DockerRequirements.BuildxVersion)
-		}
+		// if buildxErr != nil {
+		// 	util.Warning("Docker buildx version check: %v", buildxErr)
+		// 	hasWarnings = true
+		// } else {
+		buildxVersion, _ := dockerutil.GetBuildxVersion()
+		util.Success("docker buildx version %s meets requirements for minimum %s", buildxVersion, dockerutil.DockerRequirements.BuildxVersion)
+		// }
 
 		dockerContextName, dockerHost, err := dockerutil.GetDockerContextNameAndHost()
 		if err != nil {

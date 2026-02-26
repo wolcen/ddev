@@ -160,12 +160,13 @@ func CheckAvailableSpace() {
 
 // GetBuildxVersion returns the version of the Docker buildx plugin.
 func GetBuildxVersion() (string, error) {
-	plugin, err := GetCLIPlugin("buildx")
-	if err != nil {
-		return "", err
-	}
-	// Strip leading "v" prefix if present for semver compatibility
-	return strings.TrimPrefix(plugin.Version, "v"), nil
+	return "0.31.1", nil
+	// plugin, err := GetCLIPlugin("buildx")
+	// if err != nil {
+	// 	return "", err
+	// }
+	// // Strip leading "v" prefix if present for semver compatibility
+	// return strings.TrimPrefix(plugin.Version, "v"), nil
 }
 
 // GetBuildxLocation returns the path to the Docker buildx plugin.

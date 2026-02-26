@@ -3,9 +3,11 @@ package dockerutil
 import (
 	"context"
 	"fmt"
-	"io"
+
+	//"io"
 	"net"
 	"net/url"
+	"os"
 	"sync"
 
 	"github.com/ddev/ddev/pkg/util"
@@ -51,7 +53,7 @@ func getDockerManagerInstance() (*dockerManager, error) {
 		sDockerManager = &dockerManager{}
 		// Suppress any output (stdout, stderr) from docker/cli
 		sDockerManager.cli, sDockerManagerErr = command.NewDockerCli(
-			command.WithCombinedStreams(io.Discard),
+		//command.WithCombinedStreams(io.Discard),
 		)
 		if sDockerManagerErr != nil {
 			return
@@ -246,6 +248,13 @@ func GetCLIPlugin(name string) (manager.Plugin, error) {
 	if err != nil {
 		return manager.Plugin{}, err
 	}
+
+	names := make([]string, 0, len(plugins))
+	for _, p := range plugins {
+		names = append(names, p.Name)
+	}
+	fmt.Fprintf(os.Stderr, "[debug] available plugins: %v\n", names)
+
 	for _, p := range plugins {
 		if p.Name == name {
 			if p.Err != nil {
